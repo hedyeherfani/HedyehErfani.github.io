@@ -1,0 +1,151 @@
+---
+title: '8.1'
+author: "Hedyeh Erfani"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r,echo=FALSE}
+trinary = read.csv("/Users/hedyeherfani/Desktop/trinary-classifier-data.csv")
+```
+```{r,echo=FALSE}
+binary = read.csv("/Users/hedyeherfani/Desktop/binary-classifier-data.csv")
+```
+
+```{r,echo=FALSE}
+plot(trinary$x,trinary$y,main='Scatterplot of Trinary',xlab='x',ylab='y',pch=19)
+```
+```{r,echo=FALSE}
+plot(binary$x,binary$y,main='Scatterplot of Binary',xlab='x',ylab='y',pch=19)
+```
+WORKING WITH TRINARY FIRST BELOW
+```{r}
+normalize <- function(x) {
+return ((x - min(x)) / (max(x) - min(x))) }
+trinary.n <- as.data.frame(lapply(trinary[1:2], normalize))
+```
+```{r}
+set.seed(123)  # To get the same random sample
+dat.d <- sample(1:nrow(trinary.n),size=nrow(trinary.n)*0.7,replace = FALSE) #random selection of 70% data.
+
+train.trinary <- trinary[dat.d,] # 70% training data
+test.trinary <- trinary[-dat.d,] # remaining 30% test data
+
+train.trinary_labels <- trinary[dat.d,1]
+test.trinary_labels  <- trinary[-dat.d,1] 
+```
+```{r,echo=FALSE}
+library(class)
+```
+```{r,echo=FALSE}
+NROW(train.trinary_labels) 
+```
+```{r,echo=FALSE}
+knn.3 <- knn(train=train.trinary, test=test.trinary, cl=train.trinary_labels, k=3)
+knn.5 <- knn(train=train.trinary, test=test.trinary, cl=train.trinary_labels, k=5)
+knn.10 <- knn(train=train.trinary, test=test.trinary, cl=train.trinary_labels, k=10)
+knn.15 <- knn(train=train.trinary, test=test.trinary, cl=train.trinary_labels, k=15)
+knn.20 <- knn(train=train.trinary, test=test.trinary, cl=train.trinary_labels, k=20)
+knn.25 <- knn(train=train.trinary, test=test.trinary, cl=train.trinary_labels, k=25)
+```
+```{r,echo=FALSE}
+ACC.3 <- 100 * sum(test.trinary_labels == knn.3)/NROW(test.trinary_labels)
+ACC.5 <- 100 * sum(test.trinary_labels == knn.5)/NROW(test.trinary_labels)
+ACC.10 <- 100 * sum(test.trinary_labels == knn.10)/NROW(test.trinary_labels)
+ACC.15 <- 100 * sum(test.trinary_labels == knn.15)/NROW(test.trinary_labels)
+ACC.20 <- 100 * sum(test.trinary_labels == knn.20)/NROW(test.trinary_labels)
+ACC.25 <- 100 * sum(test.trinary_labels == knn.25)/NROW(test.trinary_labels)
+```
+```{r,echo=FALSE}
+table(knn.3 ,test.trinary_labels)
+table(knn.5 ,test.trinary_labels)
+table(knn.10 ,test.trinary_labels)
+table(knn.15 ,test.trinary_labels)
+table(knn.20 ,test.trinary_labels)
+table(knn.25 ,test.trinary_labels)
+```
+```{r,echo=FALSE}
+library('caret')
+```
+```{r,echo=FALSE}
+confusionMatrix(table(knn.3 ,test.trinary_labels))
+test.trinary_labels
+
+confusionMatrix(table(knn.5 ,test.trinary_labels))
+test.trinary_labels
+confusionMatrix(table(knn.10 ,test.trinary_labels))
+test.trinary_labels
+confusionMatrix(table(knn.15 ,test.trinary_labels))
+test.trinary_labels
+confusionMatrix(table(knn.20 ,test.trinary_labels))
+test.trinary_labels
+confusionMatrix(table(knn.25 ,test.trinary_labels))
+test.trinary_labels
+```
+WORKING WITH BINARY BELOW
+```{r}
+normalize <- function(x) {
+return ((x - min(x)) / (max(x) - min(x))) }
+binary.n <- as.data.frame(lapply(binary[1:2], normalize))
+```
+```{r}
+set.seed(123)  # To get the same random sample
+dat.d <- sample(1:nrow(binary.n),size=nrow(binary.n)*0.7,replace = FALSE) #random selection of 70% data.
+
+train.binary <- binary[dat.d,] # 70% training data
+test.binary <- binary[-dat.d,] # remaining 30% test data
+
+train.binary_labels <- binary[dat.d,1]
+test.binary_labels  <- binary[-dat.d,1] 
+```
+```{r,echo=FALSE}
+library(class)
+```
+```{r,echo=FALSE}
+NROW(train.binary_labels) 
+```
+```{r,echo=FALSE}
+knn.3 <- knn(train=train.binary, test=test.binary, cl=train.binary_labels, k=3)
+knn.5 <- knn(train=train.binary, test=test.binary, cl=train.binary_labels, k=5)
+knn.10 <- knn(train=train.binary, test=test.binary, cl=train.binary_labels, k=10)
+knn.15 <- knn(train=train.binary, test=test.binary, cl=train.binary_labels, k=15)
+knn.20 <- knn(train=train.binary, test=test.binary, cl=train.binary_labels, k=20)
+knn.25 <- knn(train=train.binary, test=test.binary, cl=train.binary_labels, k=25)
+```
+```{r,echo=FALSE}
+ACC.3 <- 100 * sum(test.binary_labels == knn.3)/NROW(test.binary_labels)
+ACC.5 <- 100 * sum(test.binary_labels == knn.5)/NROW(test.binary_labels)
+ACC.10 <- 100 * sum(test.binary_labels == knn.10)/NROW(test.binary_labels)
+ACC.15 <- 100 * sum(test.binary_labels == knn.15)/NROW(test.binary_labels)
+ACC.20 <- 100 * sum(test.binary_labels == knn.20)/NROW(test.binary_labels)
+ACC.25 <- 100 * sum(test.binary_labels == knn.25)/NROW(test.binary_labels)
+```
+```{r,echo=FALSE}
+table(knn.3 ,test.binary_labels)
+table(knn.5 ,test.binary_labels)
+table(knn.10 ,test.binary_labels)
+table(knn.15 ,test.binary_labels)
+table(knn.20 ,test.binary_labels)
+table(knn.25 ,test.binary_labels)
+```
+```{r,echo=FALSE}
+library('caret')
+```
+```{r,echo=FALSE}
+confusionMatrix(table(knn.3 ,test.binary_labels))
+test.binary_labels
+confusionMatrix(table(knn.5 ,test.binarylabels))
+test.binary_labels
+confusionMatrix(table(knn.10 ,test.binary_labels))
+test.binary_labels
+confusionMatrix(table(knn.15 ,test.binary_labels))
+test.binary_labels
+confusionMatrix(table(knn.20 ,test.binary_labels))
+test.binary_labels
+confusionMatrix(table(knn.25 ,test.binary_labels))
+test.binary_labels
+```
+c) I think a linear classifier wouldn't work well on these datasets
