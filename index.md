@@ -1,4 +1,3 @@
- ## About 
 
 I am an AI Engineer for a unicorn startup with experience working as a Database Developer, Data Analyst, and AI Researcher. My background in industries such as 
 finance, defense, and healthcare, have made me well rounded in the data sphere. My main tools include Python, SQL, R, Tableau, Qlik, and Power BI. I love taking on new challenges and working on innovative projects. This page contains
