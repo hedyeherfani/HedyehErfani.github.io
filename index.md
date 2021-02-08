@@ -7,12 +7,17 @@ some of the projects that I have worked on recently.
 ## Current projects
 
 1) Analyzing the impact of COVID on the retail space
+
 2) Online shopping analytics
+
 3) Predicting depression and identifying various mental health factors 
 
 ## Contact
 
 If you would like to learn more about my background or ask any questions, I can be reached at:
+
 https://www.linkedin.com/in/hedyeh-erfani-0b54a91a5/
+
 hedyeherfani4@gmail.com
+
 4074540865
